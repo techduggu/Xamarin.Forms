@@ -36,11 +36,11 @@ jobs:
           BuildPlatform: ${{ parameters.buildPlatform }}
     steps:
     - script: build.cmd -Target provision
-      condition: eq(${{ parameters.provisioning }}, 'false')
+      condition: eq(variables['provisioning'], 'false')
   
     - task: xamops.azdevex.provisionator-task.provisionator@1
       displayName: Provisionate Xamarin
-      condition: eq(${{ parameters.provisioning }}, 'true')
+      condition: eq(variables['provisioning'], 'true')
       inputs:
         provisioning_script: ${{ parameters.provisionatorPath }}
         provisioning_extra_args: ${{ parameters.provisionator.extraArguments }}
