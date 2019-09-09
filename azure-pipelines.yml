@@ -22,7 +22,7 @@ variables:
 - name: DOTNET_SKIP_FIRST_TIME_EXPERIENCE
   value: true
 - name: provisioning
-  value: true
+  value: false
 
 resources:
   repositories:

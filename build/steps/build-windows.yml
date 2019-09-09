@@ -17,7 +17,6 @@ parameters:
   artifactsName: 'win_build'
   nunitTestAdapterFolder: 'packages/NUnitTestAdapter.AnyVersion/build/'
   nunitTestFolder: '$(build.sourcesdirectory)'
-  provisioningWindows : true
 
 jobs:
   - job: ${{ parameters.name }}
