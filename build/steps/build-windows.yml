@@ -44,6 +44,11 @@ jobs:
       inputs:
         provisioning_script: ${{ parameters.provisionatorPath }}
         provisioning_extra_args: ${{ parameters.provisionator.extraArguments }}
+          
+    - task: DotNetCoreInstaller@0
+      displayName: 'Install .net core $(DOTNET_VERSION)'
+      inputs:
+        version: $(DOTNET_VERSION)
 
     - task: NuGetToolInstaller@0
       displayName: 'Use NuGet ${{ parameters.nugetVersion }}'

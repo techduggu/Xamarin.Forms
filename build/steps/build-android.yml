@@ -49,9 +49,9 @@ jobs:
           restoreSolution:  ${{ parameters.slnPath }}
           
       - task: DotNetCoreInstaller@0
-        displayName: 'Install .net core ${{ parameters.DOTNET_VERSION }}'
+        displayName: 'Install .net core $(DOTNET_VERSION)'
         inputs:
-            version: ${{ parameters.DOTNET_VERSION }}
+          version: $(DOTNET_VERSION)
 
       - task: MSBuild@1
         displayName: 'Build ${{ parameters.buildTaskPath  }}'
