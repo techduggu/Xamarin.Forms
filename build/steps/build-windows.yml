@@ -49,6 +49,9 @@ jobs:
       inputs:
         version: $(DOTNET_VERSION)
 
+    - script: |
+        dotnet new globaljson --sdk-version $(DOTNET_VERSION)
+
     - task: NuGetToolInstaller@0
       displayName: 'Use NuGet ${{ parameters.nugetVersion }}'
       inputs:

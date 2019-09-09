@@ -57,6 +57,11 @@ jobs:
         inputs:
           version: $(DOTNET_VERSION)
 
+      - script: |
+          export PATH="$PATH:/Users/vsts/.dotnet/tools"
+          export DOTNET_ROOT="$(dirname "$(readlink "$(command -v dotnet)")")"
+          dotnet new globaljson --sdk-version $(DOTNET_VERSION)
+
       - task: MSBuild@1
         displayName: 'Build ${{ parameters.buildTaskPath  }}'
         inputs:

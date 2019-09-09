@@ -9,10 +9,7 @@ if (IsMac)
 
     var dotnetVersion = System.Environment.GetEnvironmentVariable("DOTNET_VERSION");
     if (!string.IsNullOrEmpty(dotnetVersion))
-    {
         DotNetCoreSdk(dotnetVersion);
-        File.WriteAllText("../../global.json", @"{ ""sdk"": { ""version"": """ + dotnetVersion + @""" } }");
-    }
 
   // VSTS installs into a non-default location. Let's hardcode it here because why not.
 	var vstsBaseInstallPath = Path.Combine (Environment.GetEnvironmentVariable ("HOME"), ".dotnet", "sdk");
