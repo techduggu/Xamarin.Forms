@@ -79,6 +79,15 @@ Task("provision")
 
         var platform = IsRunningOnWindows() ? "windows" : "macos";
         await Boots ($"https://aka.ms/xamarin-android-commercial-d16-2-{platform}");
+
+        if(IsRunningOnWindows())
+        {
+            await Boots ($"https://download.mono-project.com/archive/6.0.0/windows-installer/mono-6.0.0.316-x64-0.msi");        
+        }
+        else
+        {
+            await Boots ($"https://download.mono-project.com/archive/6.0.0/macos-10-universal/MonoFramework-MDK-6.0.0.319.macos10.xamarin.universal.pkg");        
+        }
     });
 
 Task("_NuGetPack")
