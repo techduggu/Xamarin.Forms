@@ -39,7 +39,7 @@ jobs:
         condition: eq(variables['provisioning'], 'false')
         inputs:
           targetType: 'filePath'
-          filePath: '../../build.sh'
+          filePath: 'build.sh'
           arguments: --target provision
 
       - task: NuGetToolInstaller@0
