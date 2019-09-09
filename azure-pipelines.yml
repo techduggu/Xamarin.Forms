@@ -70,7 +70,6 @@ jobs:
     buildConfiguration: $(DefaultBuildConfiguration)
     buildPlatform: $(DefaultBuildPlatform)
     provisionatorPath : 'build/provisioning/provisioning.csx'
-    provisioningWindows : $(provisioning)
 
 - template: build/steps/build-android.yml
   parameters:
@@ -81,7 +80,6 @@ jobs:
     androidProjectArguments: '/t:"Rebuild;SignAndroidPackage" /bl:$(Build.ArtifactStagingDirectory)\android-legacy.binlog'
     buildConfiguration: $(DefaultBuildConfiguration)
     provisionatorPath : 'build/provisioning/provisioning.csx'
-    provisioningAndroid : $(provisioning)
 
 - template: build/steps/build-android.yml
   parameters:
@@ -92,7 +90,6 @@ jobs:
     androidProjectArguments: '/t:"Rebuild;SignAndroidPackage" /p:DefineConstants="TRACE DEBUG FORMS_APPLICATION_ACTIVITY APP" /bl:$(Build.ArtifactStagingDirectory)\android-preappcompact.binlog'
     buildConfiguration: $(DefaultBuildConfiguration)
     provisionatorPath : 'build/provisioning/provisioning.csx'
-    provisioningAndroid : $(provisioning)
 
 - template: build/steps/build-android.yml
   parameters:
@@ -103,7 +100,6 @@ jobs:
     androidProjectArguments: '/t:"Rebuild;SignAndroidPackage" /p:DefineConstants="TRACE DEBUG TEST_EXPERIMENTAL_RENDERERS APP" /bl:$(Build.ArtifactStagingDirectory)\android-newrenderers.binlog'
     buildConfiguration: $(DefaultBuildConfiguration)
     provisionatorPath : 'build/provisioning/provisioning.csx'
-    provisioningAndroid : $(provisioning)
 
 - job: osx
   displayName: OSX Phase

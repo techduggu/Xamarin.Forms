@@ -30,13 +30,13 @@ jobs:
       
       - task: xamops.azdevex.provisionator-task.provisionator@1
         displayName: Provisionate Xamarin
-        condition: eq(${{ parameters.provisioningAndroid }}, 'true')
+        condition: eq(${{ parameters.provisioning }}, 'true')
         inputs:
           provisioning_script: ${{ parameters.provisionatorPath }}
           provisioning_extra_args: ${{ parameters.provisionator.extraArguments }}
       
       - script: build.sh --target provision
-        condition: eq(variables['provisioningAndroid'], 'false')
+        condition: eq(${{ parameters.provisioning }}, 'false')
 
       - task: NuGetToolInstaller@0
         displayName: 'Use NuGet'

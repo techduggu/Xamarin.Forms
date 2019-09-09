@@ -3,13 +3,13 @@ steps:
 
   - task: xamops.azdevex.provisionator-task.provisionator@1
     displayName: Provisionate Xamarin
-    condition: eq(variables['provisioningOSX'], 'true')
+    condition: eq(variables['provisioning'], 'true')
     inputs:
       provisioning_script: $(provisionator.osxPath)
       provisioning_extra_args: $(provisionator.extraArguments)
       
   - script: build.sh --target provision
-    condition: eq(variables['provisioningOSX'], 'false')
+    condition: eq(variables['provisioning'], 'false')
   
   - task: DotNetCoreInstaller@0
     displayName: 'Install .net core $(DOTNET_VERSION)'
