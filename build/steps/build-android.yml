@@ -35,8 +35,12 @@ jobs:
           provisioning_script: ${{ parameters.provisionatorPath }}
           provisioning_extra_args: ${{ parameters.provisionator.extraArguments }}
       
-      - script: build.sh --target provision
+      - task: Bash@3
         condition: eq(variables['provisioning'], 'false')
+        inputs:
+          targetType: 'filePath'
+          filePath: '../../build.sh'
+          arguments: --target provision
 
       - task: NuGetToolInstaller@0
         displayName: 'Use NuGet'
