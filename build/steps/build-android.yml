@@ -14,8 +14,9 @@ parameters:
   androidProjectArguments : ''
   buildConfiguration : 'Debug'
   nugetVersion: $(NUGET_VERSION)
-  monoVersion: $(MONO_VERSION)
   apkTargetFolder: '$(build.artifactstagingdirectory)/androidApp'
+  provisionatorPath: 'build/provisioning/provisioning.csx'
+  provisionatorExtraArguments: ''
 
 jobs:
   - job: ${{ parameters.name }}
@@ -26,19 +27,31 @@ jobs:
     dependsOn: ${{ parameters.dependsOn }}
     steps:
       - checkout: self
-
-      - script: '/bin/bash -c "sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh ${{ parameters.monoVersion }}"'
-        displayName: 'Select MONO ${{ parameters.monoVersion }}'
+      
+      - task: xamops.azdevex.provisionator-task.provisionator@1
+        displayName: Provisionate Xamarin
+        condition: eq(${{ parameters.provisioningAndroid }}, 'true')
+        inputs:
+          provisioning_script: ${{ parameters.provisionatorPath }}
+          provisioning_extra_args: ${{ parameters.provisionator.extraArguments }}
+      
+      - script: build.sh --target provision
+        condition: eq(variables['provisioningAndroid'], 'false')
 
       - task: NuGetToolInstaller@0
-        displayName: 'Use NuGet ${{ parameters.nugetVersion }}'
+        displayName: 'Use NuGet'
         inputs:
           versionSpec: ${{ parameters.nugetVersion }}
 
       - task: NuGetCommand@2
         displayName: 'NuGet restore ${{ parameters.slnPath }}'
         inputs:
-          restoreSolution: ${{ parameters.slnPath }}
+          restoreSolution:  ${{ parameters.slnPath }}
+          
+      - task: DotNetCoreInstaller@0
+        displayName: 'Install .net core ${{ parameters.DOTNET_VERSION }}'
+        inputs:
+            version: ${{ parameters.DOTNET_VERSION }}
 
       - task: MSBuild@1
         displayName: 'Build ${{ parameters.buildTaskPath  }}'
